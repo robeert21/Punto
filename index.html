@@ -76,6 +76,14 @@
       letter-spacing: 0.06em;
       color: var(--cream);
       text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .nav-logo img, .footer-logo img {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
     }
     .nav-logo span { color: var(--primary); }
     .nav-links { display: flex; gap: 2.25rem; list-style: none; }
@@ -1120,22 +1128,6 @@
 
     /* ── Desktop stats beside pizza ── */
     .hero-stats-desktop { display: none; }
-
-    @media (min-width: 1101px) {
-      .hero-left .hero-stats { display: none; }
-      .hero-stats-desktop {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        position: absolute;
-        left: 4%;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 15;
-        padding-left: 1.5rem;
-        border-left: 1px solid rgba(201,169,110,0.18);
-      }
-    }
   </style>
 </head>
 <body>
