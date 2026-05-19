@@ -305,7 +305,7 @@
     }
     @keyframes badgeFloat {
       0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
+      50%       { transform: translateY(-4px); }
     }
     .badge-dot {
       width: 8px; height: 8px; border-radius: 50%;
@@ -349,7 +349,7 @@
     }
     @keyframes badgeFloat2 {
       0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-8px); }
+      50%       { transform: translateY(-4px); }
     }
     .badge2-icon { font-size: 1.1rem; }
     .badge2-text {
@@ -981,21 +981,19 @@
       color: var(--cream);
       cursor: pointer;
       padding: 0.4rem;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+      opacity: 0;
+      pointer-events: none;
     }
-    .mobile-nav-close:hover { opacity: 1; }
-    .mobile-nav-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
-      .hero { flex-direction: column; padding: 8rem 3rem 4rem; text-align: center; }
+      .hero { flex-direction: column; padding: 7rem 2rem 2rem; text-align: center; }
       .hero::after { display: none; }
       .hero-left { flex: none; width: 100%; padding: 0; }
       .hero-eyebrow { justify-content: center; }
       .hero-ctas { justify-content: center; }
       .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-      .hero-right { min-height: auto; padding: 2rem 0 4rem; }
+      .hero-right { min-height: auto; padding: 1rem 0 1.5rem; }
       .scroll-indicator { display: none; }
       .pizza-float-badge { right: 5%; }
       .pizza-float-badge-2 { left: 5%; }
@@ -1072,13 +1070,71 @@
       .td-name { white-space: normal; min-width: 0; }
       .td-ingredients { display: none; }
       .menu-table thead th:nth-child(2) { display: none; }
+      /* Tighten overall hero on mobile */
+      .hero { padding: 6.5rem 1.25rem 1.5rem; }
+      .hero-right { padding: 0.25rem 0 1rem; }
+      .hero-stats { flex-wrap: nowrap; gap: 0.75rem; }
+      .hero-sub { margin-bottom: 1.75rem; }
+      /* Section padding reduction across all sections */
+      .section-pad { padding: 3rem 1.25rem; }
+      .about-section { padding-bottom: 2rem !important; }
+      .about-story-header { margin-bottom: 1.25rem; padding-bottom: 0.875rem; }
+      .story-col-center { padding: 2rem 1.25rem; }
+      .story-col-center::before { display: none; }
+      .story-col-divider { margin: 1rem auto; }
+      /* Values grid tighter on mobile */
+      .value-item { padding: 1.5rem 0.875rem; }
+      .value-number { font-size: 2.6rem; margin-bottom: 0.4rem; }
+      .values-section { padding: 1.5rem 1rem; }
       .hero-stat-divider { display: none; }
-      .pizza-float-badge, .pizza-float-badge-2 { display: none; }
+      /* Resize badges for mobile */
+      .pizza-float-badge { right: 0%; top: 12%; padding: 0.45rem 0.7rem 0.45rem 0.6rem; gap: 0.4rem; }
+      .pizza-float-badge-2 { left: 2%; bottom: 15%; padding: 0.4rem 0.65rem; gap: 0.35rem; }
+      .badge-name { font-size: 0.78rem; }
+      .badge-sub { font-size: 0.54rem; }
+      .badge2-text { font-size: 0.62rem; }
+      /* Fix mobile pizza lightning shadow + reduce float */
+      .pizza-svg-wrap {
+        filter: drop-shadow(0 18px 32px rgba(0,0,0,0.65))
+                drop-shadow(2px 10px 14px rgba(130,40,7,0.15));
+        animation-name: pizzaFloatMobile;
+      }
+      .pizza-float-badge { animation-name: badgeFloatMobile; }
+      .pizza-float-badge-2 { animation-name: badgeFloatMobile; }
+      .pizza-shadow-ground { width: 200px; height: 26px; }
     }
     @media (max-width: 420px) {
       .hero-stats { gap: 0.75rem; }
       .hero-stat-num { font-size: 1.3rem; }
       nav { padding: 1rem 1.25rem; }
+    }
+    /* Mobile pizza float — reduced travel, no jarring 3D on small screens */
+    @keyframes pizzaFloatMobile {
+      0%, 100% { transform: perspective(900px) rotateX(10deg) rotateY(-3deg) translateY(0px); }
+      50%       { transform: perspective(900px) rotateX(10deg) rotateY(-3deg) translateY(-4px); }
+    }
+    @keyframes badgeFloatMobile {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-3px); }
+    }
+
+    /* ── Desktop stats beside pizza ── */
+    .hero-stats-desktop { display: none; }
+
+    @media (min-width: 1101px) {
+      .hero-left .hero-stats { display: none; }
+      .hero-stats-desktop {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: absolute;
+        left: 4%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 15;
+        padding-left: 1.5rem;
+        border-left: 1px solid rgba(201,169,110,0.18);
+      }
     }
   </style>
 </head>
@@ -1174,6 +1230,22 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--primary)" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
           </div>
           <div class="badge2-text">Copt la <strong>450°C</strong></div>
+        </div>
+      </div>
+
+      <!-- Desktop stats beside pizza -->
+      <div class="hero-stats-desktop">
+        <div class="hero-stat">
+          <span class="hero-stat-num">450°C</span>
+          <span class="hero-stat-label">Cuptor cu Lemne</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">24h</span>
+          <span class="hero-stat-label">Fermentare Lentă</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Ingrediente Italiene</span>
         </div>
       </div>
     </div>
@@ -1655,7 +1727,9 @@
       document.body.style.overflow = '';
     }
 
-    menuToggleBtn.addEventListener('click', openMobileNav);
+    menuToggleBtn.addEventListener('click', () => {
+      mobileNavOverlay.classList.contains('open') ? closeMobileNav() : openMobileNav();
+    });
     mobileNavClose.addEventListener('click', closeMobileNav);
     document.querySelectorAll('.mob-nav-link').forEach(link => {
       link.addEventListener('click', closeMobileNav);
