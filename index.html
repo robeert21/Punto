@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punto Pizzeria Napoletana — Suceava</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg:           #0D0B08;
+      --surface:      #171310;
+      --elevated:     #211C15;
+      --floating:     #2C2419;
+      --primary:      #C8430A;
+      --primary-glow: rgba(200, 67, 10, 0.15);
+      --gold:         #C9A96E;
+      --gold-muted:   rgba(201, 169, 110, 0.12);
+      --cream:        #F0E6D0;
+      --text:         #D6C8AE;
+      --muted:        #7A6B52;
+      --border:       rgba(201, 169, 110, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px;
+    }
+
+    .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(13, 11, 8, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(201, 169, 110, 0.55);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+    /* ── Hero — split layout ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Multi-layer warm dark background */
+    .hero-bg-layer {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 70% 50%, #2e1305 0%, transparent 65%),
+        radial-gradient(ellipse 50% 60% at 20% 70%, rgba(200,67,10,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,169,110,0.04) 0%, transparent 50%),
+        #0D0B08;
+    }
+
+    /* Left panel */
+    .hero-left {
+      flex: 0 0 44%;
+      position: relative;
+      z-index: 10;
+      padding: 4rem 2rem 4rem 7rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.8rem, 7vw, 6.5rem);
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--primary);
+      font-weight: 400;
+      display: block;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(240, 230, 208, 0.6);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.02em;
+      line-height: 1.65;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+    /* Stats strip below CTAs */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      width: fit-content;
+    }
+    .hero-stat { display: flex; flex-direction: column; gap: 0.15rem; }
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-stat-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Trapezoidal dark panel — right side, diagonal left edge to screen edge */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 -52px 0;
+      background:
+        linear-gradient(135deg, rgba(120,38,7,0.85) 0%, rgba(7,3,1,0) 52%),
+        #070301;
+      clip-path: polygon(47% 0%, 100% 0%, 100% calc(100% - 30px), 40% calc(100% - 22px));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Right panel — pizza */
+    .hero-right {
+      flex: 1;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .pizza-3d-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1060px;
+      height: 1060px;
+    }
+
+
+    /* The pizza photo wrapper */
+    .pizza-svg-wrap {
+      position: relative;
+      z-index: 2;
+      width: 1000px;
+      height: 1000px;
+      transform: perspective(1200px) rotateX(18deg) rotateY(-6deg);
+      animation: pizzaFloat 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      filter: drop-shadow(0 60px 80px rgba(0,0,0,0.85))
+              drop-shadow(8px 42px 48px rgba(130,40,7,0.45));
+    }
+    .pizza-svg-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transform: scale(1.06);
+      transform-origin: center;
+      filter: saturate(1.12) contrast(1.08) brightness(1.0);
+    }
+    @keyframes pizzaFloat {
+      0%, 100% { transform: perspective(1200px) rotateX(18deg) rotateY(-6deg) translateY(0px); }
+      50%       { transform: perspective(1200px) rotateX(18deg) rotateY(-6deg) translateY(-16px); }
+    }
+
+    /* Elliptical ground shadow */
+    .pizza-shadow-ground {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 56px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%);
+      animation: shadowPulse 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+    @keyframes shadowPulse {
+      0%, 100% { transform: translateX(-50%) scaleX(1);    opacity: 0.7; }
+      50%       { transform: translateX(-50%) scaleX(0.82); opacity: 0.35; }
+    }
+
+    /* Floating badge — like BirdPulse's label */
+    .pizza-float-badge {
+      position: absolute;
+      top: 30%;
+      right: 15%;
+      background: rgba(23, 19, 16, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 2px;
+      padding: 0.65rem 1rem 0.65rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 3;
+      animation: badgeFloat 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      animation-delay: -3.5s;
+    }
+    @keyframes badgeFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px rgba(200,67,10,0.7);
+      flex-shrink: 0;
+    }
+    .badge-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--cream);
+      letter-spacing: 0.04em;
+    }
+    .badge-sub {
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* Second floating badge bottom-left */
+    .pizza-float-badge-2 {
+      position: absolute;
+      bottom: 28%;
+      left: 16%;
+      right: auto;
+      background: rgba(23, 19, 16, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(201,169,110,0.15);
+      border-radius: 2px;
+      padding: 0.6rem 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 3;
+      animation: badgeFloat2 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      animation-delay: -1.5s;
+    }
+    @keyframes badgeFloat2 {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    .badge2-icon { font-size: 1.1rem; }
+    .badge2-text {
+      font-size: 0.72rem;
+      color: var(--text);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .badge2-text strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 7rem;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.4;
+    }
+    .scroll-indicator span {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--cream), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      51%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      box-shadow: 0 4px 16px rgba(200,67,10,0.35), 0 1px 3px rgba(200,67,10,0.2);
+    }
+    .btn-primary:hover {
+      background: #E35A1C;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200,67,10,0.45), 0 2px 6px rgba(200,67,10,0.25);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: transparent;
+      color: var(--cream);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(240, 230, 208, 0.3);
+      cursor: pointer;
+      transition: border-color 0.25s ease, color 0.25s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* ── Section shared ── */
+    section { position: relative; z-index: 1; }
+    .section-pad { padding: 5.5rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+    .section-title {
+      font-size: clamp(2.2rem, 5vw, 3.75rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--cream);
+    }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--primary); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-icon { color: var(--gold); opacity: 0.5; font-size: 0.9rem; }
+
+    /* ── About — story layout ── */
+    .about-section { background: var(--surface); padding-bottom: 3rem !important; }
+
+    .about-story-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-story-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    .story-row {
+      display: grid;
+      grid-template-columns: 1fr 380px 1fr;
+      min-height: 520px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .story-col-photo {
+      overflow: hidden;
+      position: relative;
+    }
+    .story-col-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.78) contrast(1.05) brightness(0.82);
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .story-col-photo:hover img { transform: scale(1.04); }
+    .story-col-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .story-col-photo.sp-left::after {
+      background:
+        linear-gradient(to right, rgba(13,11,8,0.4) 0%, transparent 50%),
+        linear-gradient(to top, rgba(13,11,8,0.5) 0%, transparent 55%);
+    }
+    .story-col-photo.sp-right::after {
+      background:
+        linear-gradient(to left, rgba(13,11,8,0.4) 0%, transparent 50%),
+        linear-gradient(to top, rgba(13,11,8,0.5) 0%, transparent 55%);
+    }
+
+    .story-col-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2.5rem;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: center;
+      background: var(--elevated);
+      position: relative;
+    }
+    .story-col-center::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 36px;
+      background: var(--primary);
+      opacity: 0.4;
+    }
+    .story-col-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .story-col-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2vw, 1.65rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+    }
+    .story-col-divider {
+      width: 32px; height: 1px;
+      background: var(--primary);
+      opacity: 0.5;
+      margin: 2rem auto;
+    }
+    .story-col-desc {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.75;
+      max-width: 260px;
+    }
+
+    /* CTA row */
+    .about-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .about-cta-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+    .about-cta-text span { font-style: italic; font-weight: 400; color: var(--primary); }
+    .about-cta-toggle {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      overflow: hidden;
+      background: var(--elevated);
+      text-decoration: none;
+      transition: border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .about-cta-toggle:hover { border-color: rgba(201,169,110,0.3); }
+    .about-cta-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+    .about-cta-thumb {
+      width: 34px; height: 34px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 3px;
+      flex-shrink: 0;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .about-cta-toggle:hover .about-cta-thumb { transform: scale(1.1); }
+    .about-cta-toggle-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--cream);
+      padding: 0 1.1rem 0 0.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Menu ── */
+    .menu-section { background: var(--bg); }
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.2;
+    }
+    .menu-header { text-align: center; margin-bottom: 3rem; }
+    .menu-header .section-label { justify-content: center; }
+    .menu-header p { color: var(--muted); font-size: 0.9rem; margin-top: 0.75rem; font-style: italic; }
+
+    /* Pill tabs */
+    .menu-pills-wrap {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+    .menu-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 1.35rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+    }
+    .menu-pill:hover:not(.active) {
+      color: var(--cream);
+      border-color: rgba(201,169,110,0.28);
+      background: var(--floating);
+      transform: translateY(-1px);
+    }
+    .menu-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(200,67,10,0.3);
+    }
+    .menu-pill:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    /* Menu table */
+    .menu-table-wrap { border: 1px solid var(--border); overflow: hidden; }
+    .menu-table { width: 100%; border-collapse: collapse; }
+    .menu-table thead tr { background: var(--primary); }
+    .menu-table thead th {
+      padding: 0.9rem 1.5rem;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      border: none;
+    }
+    .menu-table thead th.th-price { text-align: right; }
+    .menu-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s ease; }
+    .menu-table tbody tr:last-child { border-bottom: none; }
+    .menu-table tbody tr:nth-child(odd)  { background: var(--surface); }
+    .menu-table tbody tr:nth-child(even) { background: var(--elevated); }
+    .menu-table tbody tr:hover { background: var(--floating); }
+    .menu-table td { padding: 1.1rem 1.5rem; vertical-align: middle; }
+    .td-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--cream);
+      white-space: nowrap;
+      min-width: 180px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .td-name:hover { color: var(--gold); }
+    .td-name:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .td-tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border: 1px solid rgba(200,67,10,0.35);
+      padding: 0.1rem 0.45rem;
+      margin-left: 0.6rem;
+      vertical-align: middle;
+    }
+    .td-ingredients { color: var(--muted); font-size: 0.83rem; font-style: italic; line-height: 1.55; }
+    .td-price {
+      text-align: right;
+      white-space: nowrap;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .td-price .currency {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+
+    /* ── Pizza photo drawer ── */
+    .pizza-drawer-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(13,11,8,0.65);
+      z-index: 199; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .pizza-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .pizza-drawer {
+      position: fixed; top: 0; right: 0;
+      height: 100vh; width: 420px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 200; display: flex; flex-direction: column;
+      transform: translateX(105%);
+      transition: transform 0.38s cubic-bezier(0.34, 1.2, 0.64, 1);
+      overflow-y: auto;
+      box-shadow: -10px 0 48px rgba(13,11,8,0.7), -2px 0 8px rgba(13,11,8,0.4);
+    }
+    .pizza-drawer.open { transform: translateX(0); }
+
+    .drawer-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+      gap: 1rem;
+    }
+    .drawer-header-text { flex: 1; min-width: 0; }
+    .drawer-eyebrow {
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.3rem;
+    }
+    .drawer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem; font-weight: 600; color: var(--cream);
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .drawer-close {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: var(--elevated); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      margin-top: 0.15rem;
+    }
+    .drawer-close:hover { background: var(--floating); color: var(--cream); transform: scale(1.12); }
+    .drawer-close:active { transform: scale(0.95); }
+    .drawer-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+    .drawer-photo-wrap {
+      position: relative; overflow: hidden; flex-shrink: 0; aspect-ratio: 4/3;
+    }
+    .drawer-photo-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.85) contrast(1.05) brightness(0.88);
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.35s ease;
+    }
+    .drawer-photo-wrap.loading img { opacity: 0; }
+    .drawer-photo-wrap::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to top, rgba(13,11,8,0.55) 0%, transparent 50%),
+                  linear-gradient(135deg, rgba(200,67,10,0.07) 0%, transparent 55%);
+    }
+
+    .drawer-body { padding: 1.5rem 1.75rem; }
+    .drawer-ing-label {
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .drawer-ing-text {
+      font-size: 0.88rem; color: var(--text); line-height: 1.8; font-style: italic;
+    }
+
+    @media (max-width: 480px) { .pizza-drawer { width: 100vw; } }
+
+    /* ── Gallery strip ── */
+    .gallery-section { background: var(--surface); overflow: hidden; padding: 0; scroll-margin-top: 80px; }
+    .gallery-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: 380px;
+      height: 380px;
+    }
+    .gallery-cell {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.7) brightness(0.75);
+      transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .gallery-cell::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200,67,10,0.15) 0%, transparent 60%);
+      mix-blend-mode: multiply;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-cell:hover img { filter: saturate(1) brightness(0.9); transform: scale(1.06); }
+    .gallery-cell:hover::after { opacity: 1; }
+    .gallery-cell:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+
+    /* ── Values strip ── */
+    .values-section { background: var(--elevated); padding: 2rem 2rem; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+    .value-item {
+      background: var(--elevated);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .value-item:hover { background: var(--floating); }
+    .value-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .value-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
+    .value-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Contact ── */
+    .contact-section { background: var(--bg); position: relative; }
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.15;
+    }
+    .cf-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .program-card { background: var(--primary); border-radius: 1.25rem; padding: 2.5rem; position: relative; overflow: hidden; }
+    .program-card-glow { position: absolute; top: -30%; right: -20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); pointer-events: none; }
+    .program-title { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; color: white; letter-spacing: -0.01em; }
+    .program-rows { display: flex; flex-direction: column; gap: 0.875rem; }
+    .program-row { display: flex; justify-content: space-between; align-items: center; }
+    .program-day { color: rgba(255,255,255,0.8); font-size: 0.92rem; }
+    .program-time { background: rgba(255,255,255,0.18); color: white; font-size: 0.85rem; font-weight: 600; padding: 0.25rem 0.875rem; border-radius: 6px; letter-spacing: 0.03em; }
+    .program-divider { height: 1px; background: rgba(255,255,255,0.12); }
+    .contact-card-v2 { background: var(--surface); border: 1px solid var(--border); border-radius: 1.25rem; padding: 2.5rem; }
+    .contact-title { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; color: var(--cream); letter-spacing: -0.01em; }
+    .contact-rows { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-row { display: flex; gap: 1rem; align-items: center; }
+    .row-icon { width: 36px; height: 36px; background: var(--primary-glow); border: 1px solid rgba(200,67,10,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--primary); }
+    .row-icon.wa { background: rgba(37,211,102,0.1); border-color: rgba(37,211,102,0.2); }
+    .row-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.2rem; }
+    .row-value { color: var(--cream); font-size: 0.95rem; font-weight: 600; text-decoration: none; line-height: 1.4; }
+    .row-value:hover { color: var(--gold); }
+    .row-value.wa-link:hover { color: #25D366; }
+    .row-value:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .map-wrap { border-radius: 1.25rem; overflow: hidden; position: relative; border: 1px solid var(--border); }
+    .map-bar { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(13,11,8,0.92) 0%, rgba(13,11,8,0.6) 100%); backdrop-filter: blur(12px); padding: 1.125rem 1.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .map-bar-addr { display: flex; align-items: center; gap: 0.75rem; color: var(--cream); font-size: 0.92rem; }
+    .map-bar-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary); color: white; text-decoration: none; padding: 0.6rem 1.25rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.03em; transition: opacity 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+    .map-bar-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .map-bar-btn:active { transform: translateY(0); }
+    .map-bar-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* ── Footer ── */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--cream); letter-spacing: 0.04em; }
+    .footer-logo span { color: var(--primary); }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+    .footer-social { display: flex; gap: 1rem; }
+    .social-link {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .social-link:active { transform: translateY(0); }
+    .social-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    .menu-toggle { display: none; }
+
+    /* ── Mobile Nav Overlay ── */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 11, 8, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-nav-overlay.open { display: flex; }
+    .mobile-nav-overlay a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s ease;
+    }
+    .mobile-nav-overlay a:hover { color: var(--primary); }
+    .mobile-nav-overlay a:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--cream);
+      cursor: pointer;
+      padding: 0.4rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .mobile-nav-close:hover { opacity: 1; }
+    .mobile-nav-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .hero { flex-direction: column; padding: 8rem 3rem 4rem; text-align: center; }
+      .hero::after { display: none; }
+      .hero-left { flex: none; width: 100%; padding: 0; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-ctas { justify-content: center; }
+      .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+      .hero-right { min-height: auto; padding: 2rem 0 4rem; }
+      .scroll-indicator { display: none; }
+      .pizza-float-badge { right: 5%; }
+      .pizza-float-badge-2 { left: 5%; }
+      .pizza-3d-wrap { width: 560px; height: 560px; }
+      .pizza-svg-wrap { width: 520px; height: 520px; }
+    }
+    @media (max-width: 1024px) {
+      .story-row { grid-template-columns: 1fr 300px 1fr; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-strip { grid-template-columns: repeat(3, 1fr); grid-template-rows: 380px; }
+      .gallery-cell:nth-child(4), .gallery-cell:nth-child(5) { display: none; }
+      .cf-grid { grid-template-columns: 1fr; }
+      .map-bar { flex-direction: column; align-items: flex-start; }
+    }
+    /* ── Section Dividers ── */
+    .sec-div {
+      position: relative;
+      overflow: hidden;
+      line-height: 0;
+      margin: 0;
+      padding: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+    #hero-about-div { z-index: 0; }
+    .sec-div svg {
+      display: block;
+      width: 100%;
+      height: 52px;
+    }
+    .sec-div-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      z-index: 4;
+    }
+    .sec-div-line {
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
+    }
+    .sec-div-diamond {
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      opacity: 0.45;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .sec-div { display: none; }
+      .nav-links { display: none; }
+      .menu-toggle { display: block; background: none; border: none; color: var(--cream); font-size: 1.4rem; cursor: pointer; padding: 0.25rem; }
+      .gallery-strip { grid-template-columns: repeat(2, 1fr); grid-template-rows: 240px; height: 240px; }
+      .gallery-cell:nth-child(n+3) { display: none; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .about-features { grid-template-columns: 1fr; }
+      .pizza-3d-wrap { width: 320px; height: 320px; }
+      .pizza-svg-wrap { width: 300px; height: 300px; }
+      .story-row { grid-template-columns: 1fr; grid-template-rows: 260px auto 220px; }
+      .story-col-photo.sp-left { order: 1; }
+      .story-col-center { order: 2; border-left: none; border-right: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .story-col-photo.sp-right { order: 3; }
+      .about-story-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+      .about-cta-row { flex-direction: column; align-items: flex-start; }
+      .menu-table-wrap { overflow-x: hidden; }
+      .menu-table { font-size: 0.82rem; width: 100%; }
+      .menu-table thead th, .menu-table td { padding: 0.85rem 1rem; }
+      .td-name { white-space: normal; min-width: 0; }
+      .td-ingredients { display: none; }
+      .menu-table thead th:nth-child(2) { display: none; }
+      .hero-stat-divider { display: none; }
+      .pizza-float-badge, .pizza-float-badge-2 { display: none; }
+    }
+    @media (max-width: 420px) {
+      .hero-stats { gap: 0.75rem; }
+      .hero-stat-num { font-size: 1.3rem; }
+      nav { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo"><img src="brand_assets/logopunto-cropped.png" alt="Punto Pizzeria Napoletana" style="height:52px;width:auto;display:block;" /></a>
+    <ul class="nav-links">
+      <li><a href="#despre">Povestea Noastră</a></li>
+      <li><a href="#meniu">Meniu</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#despre" class="mob-nav-link">Povestea Noastră</a>
+    <a href="#meniu" class="mob-nav-link">Meniu</a>
+    <a href="#galerie" class="mob-nav-link">Galerie</a>
+    <a href="#contact" class="mob-nav-link">Contact</a>
+  </div>
+
+  <!-- Hero — split layout -->
+  <section class="hero">
+    <div class="hero-bg-layer"></div>
+
+    <!-- Left panel -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">Pizzeria Napoletana · Suceava</div>
+      <h1>Punto</h1>
+      <p class="hero-sub">Arta autentică a pizzei napolitane,<br />adusă din inima Italiei în centrul Sucevei.</p>
+      <div class="hero-ctas">
+        <a href="#meniu" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          Descoperă Meniul
+        </a>
+        <a href="#contact" class="btn-outline">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Ne Găsești Aici
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">450°C</span>
+          <span class="hero-stat-label">Cuptor cu Lemne</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">24h</span>
+          <span class="hero-stat-label">Fermentare Lentă</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Ingrediente Italiene</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel — 3D Pizza -->
+    <div class="hero-right">
+      <div class="pizza-3d-wrap">
+        <!-- Real Pizza Photo -->
+        <div class="pizza-svg-wrap">
+          <img
+            src="pizzanobg.png"
+            alt="Margherita Napoletana"
+          />
+        </div>
+
+        <div class="pizza-shadow-ground"></div>
+
+        <!-- Floating label badge — top right -->
+        <div class="pizza-float-badge">
+          <div class="badge-dot"></div>
+          <div>
+            <div class="badge-name">Margherita DOP</div>
+            <div class="badge-sub">Specialitatea casei</div>
+          </div>
+        </div>
+
+        <!-- Second floating badge — bottom left -->
+        <div class="pizza-float-badge-2">
+          <div class="badge2-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--primary)" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+          </div>
+          <div class="badge2-text">Copt la <strong>450°C</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Hero → About -->
+  <div class="sec-div" id="hero-about-div" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 1440,0 1440,38 0,62" fill="#0D0B08"/>
+      <polygon points="0,62 1440,38 1440,90 0,90" fill="#171310"/>
+    </svg>
+  </div>
+
+  <!-- About — story layout -->
+  <section class="about-section section-pad" id="despre">
+    <div class="container">
+
+      <div class="about-story-header">
+        <div class="section-label">Povestea Noastră</div>
+        <span class="about-story-tagline">Înrădăcinați în tradiție, creați pentru azi</span>
+      </div>
+
+      <div class="story-row">
+
+        <div class="story-col-photo sp-left">
+          <img src="pizza_photos/interior.jpg" alt="Pizzaiolo pregătind pizza napolitană la Punto" />
+        </div>
+
+        <div class="story-col-center">
+          <div class="story-col-eyebrow">Punto · Suceava</div>
+          <p class="story-col-quote">
+            Inspirați de aromele autentice ale Italiei, îmbinăm simplitatea cu pasiunea, folosind ingrediente locale și tehnici tradiționale de gătit.
+          </p>
+          <div class="story-col-divider" aria-hidden="true"></div>
+          <p class="story-col-desc">
+            Fiecare pizza este o mărturie a meșteșugului napoletan — cuptorul cu lemne, aluatul fermentat lent și ingredientele cu origine certificată.
+          </p>
+        </div>
+
+        <div class="story-col-photo sp-right">
+          <img src="pizza_photos/together.jpg" alt="Prieteni împărțind pizza la Punto" />
+        </div>
+
+      </div>
+
+      <!-- CTA row -->
+      <div class="about-cta-row">
+        <div class="about-cta-text">Descoperă <span>meniul nostru</span></div>
+        <a href="#meniu" class="about-cta-toggle" aria-label="Explorează meniul">
+          <div class="about-cta-thumb">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <span class="about-cta-toggle-label">Explorează Meniul</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About → Values -->
+  <div class="sec-div" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 1440,0 1440,62 0,38" fill="#171310"/>
+      <polygon points="0,38 1440,62 1440,90 0,90" fill="#211C15"/>
+    </svg>
+  </div>
+
+  <!-- Values strip -->
+  <section class="values-section">
+    <div class="container">
+      <div class="values-grid">
+        <div class="value-item">
+          <div class="value-number">450</div>
+          <div class="value-title">Grade Celsius</div>
+          <div class="value-desc">Temperatura cuptorului nostru cu lemne pentru o pizza perfectă.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-number">24h</div>
+          <div class="value-title">Fermentare Lentă</div>
+          <div class="value-desc">Aluatul nostru se odihnește minim o zi pentru textura ideală.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-number">100%</div>
+          <div class="value-title">Ingrediente Italiene</div>
+          <div class="value-desc">Roșii, mozzarella și ulei aduse direct de la producători italieni.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-number">STG</div>
+          <div class="value-title">Rețetă Certificată</div>
+          <div class="value-desc">Respectăm disciplinarul Associazione Verace Pizza Napoletana.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values → Menu -->
+  <div class="sec-div" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 1440,0 1440,38 0,62" fill="#211C15"/>
+      <polygon points="0,62 1440,38 1440,90 0,90" fill="#0D0B08"/>
+    </svg>
+  </div>
+
+  <!-- Menu -->
+  <section class="menu-section section-pad" id="meniu">
+    <div class="container">
+
+      <div class="menu-header">
+        <div class="section-label">La Nostra Cucina</div>
+        <h2 class="section-title">Meniul <em>nostru</em></h2>
+        <p>Toate pizzele sunt preparate la comandă, cu ingrediente proaspete din Italia</p>
+      </div>
+
+      <div class="menu-pills-wrap" role="tablist">
+        <button class="menu-pill active" role="tab" aria-selected="true" data-tab="rosii">Rosse</button>
+        <button class="menu-pill" role="tab" aria-selected="false" data-tab="bianche">Bianche</button>
+        <button class="menu-pill" role="tab" aria-selected="false" data-tab="speciale">Speciale</button>
+      </div>
+
+      <div class="menu-table-wrap" id="tab-rosii">
+        <table class="menu-table">
+          <thead><tr>
+            <th style="width:200px">Nume Pizza</th>
+            <th>Ingrediente</th>
+            <th class="th-price" style="width:110px">Preț</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="td-name" data-photo="pizza_photos/margherita.jpg" tabindex="0" role="button" aria-label="Vezi foto Marinara">Marinara <span class="td-tag">Vegană</span></td><td class="td-ingredients">sos roșii San Marzano DOP, usturoi, oregano, ulei de măsline extravirgin</td><td class="td-price">29<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/margherita.jpg" tabindex="0" role="button" aria-label="Vezi foto Margherita">Margherita <span class="td-tag">Clasică</span></td><td class="td-ingredients">sos roșii San Marzano, fior di latte, busuioc proaspăt, ulei de măsline</td><td class="td-price">35<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/margherita.jpg" tabindex="0" role="button" aria-label="Vezi foto Margherita DOP">Margherita DOP <span class="td-tag">Signatura</span></td><td class="td-ingredients">sos roșii San Marzano, mozzarella di bufala DOP, busuioc, ulei extravirgin</td><td class="td-price">42<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/diavola.jpg" tabindex="0" role="button" aria-label="Vezi foto Diavola">Diavola <span class="td-tag">Picantă</span></td><td class="td-ingredients">sos roșii, fior di latte, salami piccante, chili, ulei de măsline</td><td class="td-price">39<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/prosciutto-funghi.jpg" tabindex="0" role="button" aria-label="Vezi foto Prosciutto e Funghi">Prosciutto e Funghi</td><td class="td-ingredients">sos roșii, fior di latte, prosciutto cotto, ciuperci champignon</td><td class="td-price">41<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/quattro-staggioni.jpg" tabindex="0" role="button" aria-label="Vezi foto Quattro Stagioni">Quattro Stagioni</td><td class="td-ingredients">sos roșii, fior di latte, prosciutto, ciuperci, anghinare, măsline negre</td><td class="td-price">43<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/tonno.jpg" tabindex="0" role="button" aria-label="Vezi foto Napoli">Napoli <span class="td-tag">Pescară</span></td><td class="td-ingredients">sos roșii San Marzano, fior di latte, fileti de anchoa, capere, oregano</td><td class="td-price">40<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/capriciosa.jpg" tabindex="0" role="button" aria-label="Vezi foto Calzone al Forno">Calzone al Forno <span class="td-tag">Tradițional</span></td><td class="td-ingredients">aluat pliat, sos roșii, fior di latte, prosciutto cotto, ricotta cremoasă</td><td class="td-price">44<span class="currency"> lei</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="menu-table-wrap" id="tab-bianche" style="display:none;">
+        <table class="menu-table">
+          <thead><tr>
+            <th style="width:200px">Nume Pizza</th>
+            <th>Ingrediente</th>
+            <th class="th-price" style="width:110px">Preț</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="td-name" data-photo="pizza_photos/quattro-formaggi.jpg" tabindex="0" role="button" aria-label="Vezi foto Quattro Formaggi">Quattro Formaggi <span class="td-tag">Signatura</span></td><td class="td-ingredients">fior di latte, gorgonzola DOP, pecorino romano, ricotta cremoasă</td><td class="td-price">43<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/pugliese.jpg" tabindex="0" role="button" aria-label="Vezi foto Burrata e Rucola">Burrata e Rucola</td><td class="td-ingredients">fior di latte, burrata cremoasă, roșii cherry, rucola, parmezan, ulei</td><td class="td-price">47<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/tonno.jpg" tabindex="0" role="button" aria-label="Vezi foto Salmone">Salmone <span class="td-tag">Pescară</span></td><td class="td-ingredients">fior di latte, somon afumat, rucola, parmezan, lămâie, ulei extravirgin</td><td class="td-price">48<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/tartufata.jpg" tabindex="0" role="button" aria-label="Vezi foto Tartufo">Tartufo <span class="td-tag">Premium</span></td><td class="td-ingredients">fior di latte, ciuperci porcini, cremă de trufa neagră, parmezan, cimbru</td><td class="td-price">52<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/pugliese.jpg" tabindex="0" role="button" aria-label="Vezi foto Prosciutto Crudo">Prosciutto Crudo</td><td class="td-ingredients">fior di latte, prosciutto crudo 18 luni, rucola baby, parmezan</td><td class="td-price">49<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/patate-salsiccia.jpg" tabindex="0" role="button" aria-label="Vezi foto Patate e Rosmarino">Patate e Rosmarino <span class="td-tag">Vegană</span></td><td class="td-ingredients">fior di latte, felii de cartof, rozmarin proaspăt, usturoi, ulei extravirgin</td><td class="td-price">36<span class="currency"> lei</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="menu-table-wrap" id="tab-speciale" style="display:none;">
+        <table class="menu-table">
+          <thead><tr>
+            <th style="width:200px">Nume Pizza</th>
+            <th>Ingrediente</th>
+            <th class="th-price" style="width:110px">Preț</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="td-name" data-photo="pizza_photos/mortadela-buratta.jpg" tabindex="0" role="button" aria-label="Vezi foto Punto Signature">Punto Signature <span class="td-tag">Casa</span></td><td class="td-ingredients">sos roșii, mozzarella di bufala, prosciutto crudo, burrata, rucola, parmezan</td><td class="td-price">55<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/porcini-nduja.jpg" tabindex="0" role="button" aria-label="Vezi foto Mare e Monti">Mare e Monti <span class="td-tag">Premium</span></td><td class="td-ingredients">sos roșii, fior di latte, gamberete, ciuperci porcini, usturoi, pătrunjel</td><td class="td-price">52<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/fuoco.jpg" tabindex="0" role="button" aria-label="Vezi foto Nduja e Stracciatella">Nduja e Stracciatella <span class="td-tag">Picantă</span></td><td class="td-ingredients">sos roșii, stracciatella di bufala, nduja calabreză, miere de trufa</td><td class="td-price">53<span class="currency"> lei</span></td></tr>
+            <tr><td class="td-name" data-photo="pizza_photos/giardino.jpg" tabindex="0" role="button" aria-label="Vezi foto Pizza del Contadino">Pizza del Contadino <span class="td-tag">Vegană</span></td><td class="td-ingredients">sos roșii, fior di latte, legume de sezon la grătar, pesto genovez</td><td class="td-price">40<span class="currency"> lei</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align:center; margin-top:2.5rem; color:var(--muted); font-size:0.82rem; font-style:italic;">
+        Meniu complet disponibil în restaurant · Ingredientele pot varia în funcție de sezon
+      </p>
+    </div>
+  </section>
+
+  <!-- Menu → Gallery -->
+  <div class="sec-div" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 1440,0 1440,62 0,38" fill="#0D0B08"/>
+      <polygon points="0,38 1440,62 1440,90 0,90" fill="#171310"/>
+    </svg>
+  </div>
+
+  <!-- Gallery -->
+  <section class="gallery-section" id="galerie">
+    <div class="gallery-strip">
+      <div class="gallery-cell" tabindex="0">
+        <img src="pizza_photos/margherita.jpg" alt="Pizza Margherita" />
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;z-index:2;background:linear-gradient(to top,rgba(13,11,8,0.75) 0%,transparent 60%);">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(240,230,208,0.85);font-style:italic;letter-spacing:0.02em;">Margherita DOP</span>
+        </div>
+      </div>
+      <div class="gallery-cell" tabindex="0">
+        <img src="pizza_photos/together.jpg" alt="Cuptor cu lemne" />
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;z-index:2;background:linear-gradient(to top,rgba(13,11,8,0.75) 0%,transparent 60%);">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(240,230,208,0.85);font-style:italic;letter-spacing:0.02em;">Împreună la Masă</span>
+        </div>
+      </div>
+      <div class="gallery-cell" tabindex="0">
+        <img src="pizza_photos/aluat.png" alt="Aluat napoletan" />
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;z-index:2;background:linear-gradient(to top,rgba(13,11,8,0.75) 0%,transparent 60%);">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(240,230,208,0.85);font-style:italic;letter-spacing:0.02em;">Aluat Fermentat</span>
+        </div>
+      </div>
+      <div class="gallery-cell" tabindex="0">
+        <img src="pizza_photos/interior.jpg" alt="Interior pizzerie" />
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;z-index:2;background:linear-gradient(to top,rgba(13,11,8,0.75) 0%,transparent 60%);">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(240,230,208,0.85);font-style:italic;letter-spacing:0.02em;">Interior Punto</span>
+        </div>
+      </div>
+      <div class="gallery-cell" tabindex="0">
+        <img src="pizza_photos/diavola.jpg" alt="Pizza Diavola" />
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;z-index:2;background:linear-gradient(to top,rgba(13,11,8,0.75) 0%,transparent 60%);">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(240,230,208,0.85);font-style:italic;letter-spacing:0.02em;">Diavola</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery → Contact -->
+  <div class="sec-div" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 1440,0 1440,38 0,62" fill="#171310"/>
+      <polygon points="0,62 1440,38 1440,90 0,90" fill="#0D0B08"/>
+    </svg>
+  </div>
+
+  <!-- Contact -->
+  <section class="contact-section section-pad" id="contact">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <div class="section-label">Vino la noi</div>
+        <h2 class="section-title">Unde Ne <em>Găsești</em></h2>
+        <p style="color: var(--muted); margin-top: 0.75rem; font-size: 0.95rem; line-height: 1.7;">Vino să ne vizitezi sau contactează-ne pentru comenzi</p>
+      </div>
+
+      <div class="cf-grid">
+        <!-- Program Card -->
+        <div class="program-card">
+          <div class="program-card-glow"></div>
+          <div class="program-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            Program
+          </div>
+          <div class="program-rows">
+            <div class="program-row">
+              <span class="program-day">Luni – Vineri</span>
+              <span class="program-time">10:00 – 22:00</span>
+            </div>
+            <div class="program-divider"></div>
+            <div class="program-row">
+              <span class="program-day">Sâmbătă</span>
+              <span class="program-time">10:00 – 22:00</span>
+            </div>
+            <div class="program-divider"></div>
+            <div class="program-row">
+              <span class="program-day">Duminică</span>
+              <span class="program-time">10:00 – 22:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Card -->
+        <div class="contact-card-v2">
+          <div class="contact-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.75" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            Contact
+          </div>
+          <div class="contact-rows">
+            <div class="contact-row">
+              <div class="row-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+              </div>
+              <div>
+                <div class="row-label">Telefon</div>
+                <a href="tel:+40746023399" class="row-value">0746 023 399</a>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="row-icon wa">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div>
+                <div class="row-label">WhatsApp</div>
+                <a href="https://wa.me/40746023399" target="_blank" rel="noopener" class="row-value wa-link">Scrie-ne pe WhatsApp</a>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="row-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+              </div>
+              <div>
+                <div class="row-label">Adresă</div>
+                <div class="row-value">Strada Nicolae Bălcescu 1,<br>720066 Suceava</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full-width map -->
+      <div class="map-wrap">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=26.2521%2C47.6420%2C26.2641%2C47.6480&amp;layer=mapnik&amp;marker=47.6449674%2C26.258135"
+          width="100%"
+          height="380"
+          style="border: 0; display: block;"
+          allowfullscreen=""
+          loading="lazy"
+          title="Harta locație Punto Pizzeria"
+        ></iframe>
+        <div class="map-bar">
+          <div class="map-bar-addr">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.75"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+            <span>Strada Nicolae Bălcescu 1, Suceava</span>
+          </div>
+          <a href="https://maps.app.goo.gl/m1TGtXr5s96uhcEt7" target="_blank" rel="noopener" class="map-bar-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-10l6 3m0 7l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 9m0 4V9"/></svg>
+            Deschide în Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo"><img src="brand_assets/logopunto-cropped.png" alt="Punto Pizzeria Napoletana" style="height:48px;width:auto;display:block;margin:0 auto;opacity:0.85;" /></div>
+      <div class="footer-copy">© 2025 Punto Pizzeria Napoletana · Suceava</div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/p/PUNTO-Pizzeria-Napoletana-61587266490076/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Pizza photo drawer -->
+  <div class="pizza-drawer-backdrop" id="pizzaBackdrop"></div>
+  <div class="pizza-drawer" id="pizzaDrawer" role="dialog" aria-modal="true" aria-label="Foto pizza">
+    <div class="drawer-header">
+      <div class="drawer-header-text">
+        <div class="drawer-eyebrow">Punto · Pizzerie Napoletană</div>
+        <div class="drawer-name" id="drawerName"></div>
+      </div>
+      <button class="drawer-close" id="drawerClose" aria-label="Închide">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="drawer-photo-wrap" id="drawerPhotoWrap">
+      <img id="drawerImg" src="" alt="" />
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-ing-label">Ingrediente</div>
+      <p class="drawer-ing-text" id="drawerIngredients"></p>
+    </div>
+  </div>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    document.querySelectorAll('.about-tab').forEach(tab => {
+      function activateAbout() {
+        const key = tab.dataset.about;
+        document.querySelectorAll('.about-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.about-panel').forEach(p => p.classList.remove('active'));
+        const panel = document.getElementById('apanel-' + key);
+        if (panel) panel.classList.add('active');
+        document.querySelectorAll('.about-image-col img').forEach(img => img.classList.remove('active'));
+        const img = document.getElementById('aimg-' + key);
+        if (img) img.classList.add('active');
+      }
+      tab.addEventListener('click', activateAbout);
+      tab.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateAbout(); }
+      });
+    });
+
+    document.querySelectorAll('.menu-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.menu-pill').forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('aria-selected', 'false');
+        });
+        pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
+        const target = pill.dataset.tab;
+        document.querySelectorAll('.menu-table-wrap').forEach(wrap => { wrap.style.display = 'none'; });
+        const el = document.getElementById('tab-' + target);
+        if (el) el.style.display = 'block';
+      });
+    });
+
+    // ── Pizza photo drawer ───────────────────────────────────────────────────
+    const drawer     = document.getElementById('pizzaDrawer');
+    const backdrop   = document.getElementById('pizzaBackdrop');
+    const drawerName = document.getElementById('drawerName');
+    const drawerImg  = document.getElementById('drawerImg');
+    const drawerWrap = document.getElementById('drawerPhotoWrap');
+    const drawerIng  = document.getElementById('drawerIngredients');
+    const btnClose   = document.getElementById('drawerClose');
+
+    function openDrawer(td) {
+      const photo = td.dataset.photo;
+      const name  = td.childNodes[0].textContent.trim();
+      const ing   = td.parentElement.querySelector('.td-ingredients').textContent;
+
+      drawerName.textContent = name;
+      drawerIng.textContent  = ing;
+      drawerWrap.classList.add('loading');
+      drawerImg.src = '';
+
+      const img = new Image();
+      img.onload = () => {
+        drawerImg.src = photo;
+        drawerWrap.classList.remove('loading');
+      };
+      img.src = photo;
+
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      btnClose.focus();
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.td-name[data-photo]').forEach(td => {
+      td.addEventListener('click', () => openDrawer(td));
+      td.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(td); }
+      });
+    });
+
+    btnClose.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    // Mobile nav
+    const menuToggleBtn = document.getElementById('menuToggle');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    const mobileNavClose = document.getElementById('mobileNavClose');
+
+    function openMobileNav() {
+      mobileNavOverlay.classList.add('open');
+      menuToggleBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+      mobileNavOverlay.classList.remove('open');
+      menuToggleBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggleBtn.addEventListener('click', openMobileNav);
+    mobileNavClose.addEventListener('click', closeMobileNav);
+    document.querySelectorAll('.mob-nav-link').forEach(link => {
+      link.addEventListener('click', closeMobileNav);
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileNavOverlay.classList.contains('open')) closeMobileNav();
+    });
+  </script>
+</body>
+</html>
